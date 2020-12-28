@@ -1,0 +1,46 @@
+{%extends 'base.html'%}
+{%block title%}show stock{%endblock title%}
+
+{%block content%}
+
+<form method="POST", action="#",class="container">
+{{form.hidden_tag() }}
+
+{{form.options}}
+
+{{form.item_name.label}}
+{{form.item_name}}
+
+{{form.time_to_show.label}}
+{{form.time_to_show}}
+
+{{form.submit}}
+
+</form>
+
+{% if view_option == "all" %}
+<table border=solid>
+    <tr> <th>Stock item</th> <th>Kitchen Stock</th> <th>Garage Stock</th>  <th>Total Stock</th> </tr>
+    {% for entry in all_stock %}
+        <tr> <td>{{entry.item}}</td> <td>{{entry.kitchen_stock}}</td> <td>{{entry.garage_stock}}</td> <td>{{entry.total_stock}}</td> </tr>
+    {% endfor %}
+</table>
+
+{% elif view_option =="single" %}
+
+<p>There are {{item_summary.kitchen_stock}} {{item_summary.item}} in the kitchen and {{item_summary.garage_stock}} {{item_summary.item}}  in garaage making a total of {{item_summary.total_stock}} {{item_summary.item}}</p>
+<p>The following stock actions for {{item_summary.item}} have been recorded in the last {{item_summary.time_to_show}}</p>
+
+<ul>
+    {% for transact in transactions %}
+        <li>{{transact.date.strftime('%d-%m-%Y')}}-----{{transact.number}}-----{{transact.action}} </li>
+    {% endfor %}
+
+
+</ul>
+
+
+
+{% endif %}
+{% endblock content %}
+

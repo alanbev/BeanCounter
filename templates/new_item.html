@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}new item{% endblock title %}
+
+{% block content %}
+
+<form method="POST", action="#", class="container">
+{{  form.hidden_tag()  }}
+{{form.item.label}}
+{{form.item}}
+{{form.min_stock.label}}
+{{form.min_stock}}
+{{form.submit}}
+</form>
+
+<div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {%endif%}
+    {% endwith %}
+</div>
+<a href= "{{ url_for('update_stock') }}">Go to the update stock page </a> to enter where any stock of this item is being stored.
+
+{% endblock content %}
+

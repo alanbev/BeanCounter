@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+
+{%block title%}update stock{%endblock title%}
+
+{% block content %}
+
+
+
+<form method="POST", action="#",class="container">
+{{form.hidden_tag() }}
+{{form.item_name.label}}
+{{form.item_name}}
+{{form.item_quantity.label}}
+{{form.item_quantity}}
+{{form.actions}}
+
+{{form.submit}}
+</form>
+
+
+<div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {%endif%}
+    {% endwith %}
+</div>
+
+<p>If the item you are looking not  is not on the list <a  href="{{ url_for('new_item') }}">go to the new item page</a> to enter it now</p>
+
+{% endblock content %}
