@@ -23,7 +23,7 @@ def update_stock():
         item_quantity = int(request.form['item_quantity'])
         print(type(item_quantity))
         action = request.form['actions']
-        item_to_add = Transactions(action=action, number_actioned=item_quantity,stock_list_item=item_actioned)
+        item_to_add = Transactions(action=action, number_actioned=item_quantity, item=item_actioned)
         db.session.add(item_to_add)
         db.session.commit()
         entry_to_change = Stock_list.query.filter_by(item=item_actioned).first()

@@ -15,10 +15,10 @@ class Stock_list(db.Model):
 
 class Transactions(db.Model):
     id = db.Column(db.Integer, primary_key =True)
-    action = db.Column(db.Integer)
+    action = db.Column(db.String)
     number_actioned = db.Column(db.Integer, nullable = False)
     date = db.Column(db.DateTime, default = datetime.datetime.now)
-    stock_list_item = db.Column(db.Integer, db.ForeignKey('stock_list.id'))
+    item = db.Column(db.String, db.ForeignKey('stock_list.id'))
 
 
 db.create_all()
