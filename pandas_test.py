@@ -29,8 +29,7 @@ elif sort_on =="days":
 else: 
     combined_df.sort_values(by='item', inplace=True)
 r_combined_df=combined_df.round({'percent_min':0, 'days_to_min':0}).reset_index()
-output_dict=combined_df.to_dict('records')
+output_dict=r_combined_df.to_dict('records')
 print(r_combined_df)
 print (output_dict)
 
-combined_df
