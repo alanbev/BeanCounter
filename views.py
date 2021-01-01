@@ -1,10 +1,14 @@
 from datetime import datetime, timedelta
 from flask import render_template, request, url_for, flash
 from flask_sqlalchemy.utils import sqlalchemy_version
+from pandas.io.pytables import PossibleDataLossError
 from models import Stock_list,Transactions
 from app import app
-from forms import NewItem, StockUpdate, SelectView
+from forms import NewItem, SortShopList, StockUpdate, SelectView, SortShopList
 from models import db
+import numpy as np
+import pandas as pd
+from sorted_list import generate_sorted_list
 
 
 @app.route('/', methods=('GET','POST'))
@@ -13,6 +17,7 @@ def update_stock():
 
     form = StockUpdate()
     item_choices=Stock_list.query.order_by(Stock_list.item).all()
+
     each_item=[]
     for choice in item_choices:
         each_item.append(choice.item)
@@ -126,6 +131,26 @@ def new_item():
             db.session.commit()
             flash(f'New item - {item_entered} - entered successfully')
     return render_template('new_item.html', form=form)
+
+@app.route('/shopping_list', methods=('GET','POST'))
+def shopping_list():
+    data_dict={}
+    select_form=SortShopList()
+    if request.method == 'POST':
+        if select_form.validate_on_submit():
+            sort_on = request.form['options']
+            print(sort_on)
+            data_dict=generate_sorted_list(sort_on)
+            print(data_dict)
+
+
+
+
+
+    return render_template('shopping_list.html',form1=select_form, data=data_dict)
+
+
+
 
 
 

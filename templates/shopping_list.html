@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+[[{% block title %}
+shopping list
+{% endblock title %}
+
+{% block content %}
+
+<form method="POST", action="#",class="container">
+    {{form1.hidden_tag() }}
+    {{form1.options}}
+    {{form1.submit}}
+
+</form>
+
+<p>{{data}}</p>
+
+
+
+
+{% endblock content %}}
+
+

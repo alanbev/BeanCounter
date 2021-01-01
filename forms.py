@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField
+from wtforms import validators
 from wtforms.fields.core import RadioField, SelectField
 from wtforms.validators import DataRequired, Length, NumberRange
 from models import Stock_list, db
@@ -24,6 +25,10 @@ class SelectView(FlaskForm):
     item_name = SelectField('Item to view') 
     time_to_show = RadioField('Show actions for last:',choices =['week', 'month', 'year','all'], default='week')
     submit = SubmitField('Show selection')
+
+class SortShopList(FlaskForm):
+    options = RadioField(choices=[('name','Sort by Item Name'), ('percent','Sort by percent of Minimum Stock'),('days','Sort by predicted days to minimum stock')], validators=[DataRequired()])
+    submit = SubmitField('Choose Sorting Method')
 
 
     
