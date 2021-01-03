@@ -16,7 +16,11 @@ from sorted_list import generate_sorted_list
 def update_stock():
 
     form = StockUpdate()
-    item_choices=Stock_list.query.order_by(Stock_list.item).all()
+    if Stock_list.query.all() is None:
+        item_choices = []
+    else:   
+        item_choices = Stock_list.query.order_by(Stock_list.item).all()
+
 
     each_item=[]
     for choice in item_choices:
@@ -66,8 +70,12 @@ def update_stock():
 
 @app.route('/show_stock', methods=('GET','POST'))
 def show_stock():
+    
     form = SelectView()
-    item_choices=Stock_list.query.order_by(Stock_list.item).all()
+    if Stock_list.query.all() is None:
+        item_choices = []
+    else:  
+        item_choices=Stock_list.query.order_by(Stock_list.item).all()
     each_item=[]
     for choice in item_choices:
         each_item.append(choice.item)
@@ -97,16 +105,19 @@ def show_stock():
                     days_to_show = 365
                 else:
                     days_to_show = 100000
+                if Transactions.query.all() is None:
+                    flash("No Tranactions to show")
+                    item_tranaactions = []
+                else:  
+                    item_from_bd = Stock_list.query.filter_by(item=item_to_display).first()
+                    total_stock = item_from_bd.kitchen_stock + item_from_bd.garage_stock
+                    item_summary={'item':item_from_bd.item, 'kitchen_stock':item_from_bd.kitchen_stock, 'garage_stock':item_from_bd.garage_stock,'total_stock':total_stock, 'time_to_show':time_to_show}
 
-                item_from_bd = Stock_list.query.filter_by(item=item_to_display).first()
-                total_stock = item_from_bd.kitchen_stock + item_from_bd.garage_stock
-                item_summary={'item':item_from_bd.item, 'kitchen_stock':item_from_bd.kitchen_stock, 'garage_stock':item_from_bd.garage_stock,'total_stock':total_stock, 'time_to_show':time_to_show}
-
-                transactions_from_db = Transactions.query.filter(Transactions.stock_list_item==item_to_display, Transactions.date > datetime.utcnow()-timedelta(days=days_to_show )).order_by(Transactions.date).all()
-                for transact in transactions_from_db:
-                    transact_dict={'date':transact.date, 'number':transact.number_actioned, 'action':transact.action}
-                    item_transactions.append(transact_dict)
-                view_option ="single"
+                    transactions_from_db = Transactions.query.filter(Transactions.item==item_to_display, Transactions.date > datetime.utcnow()-timedelta(days=days_to_show )).order_by(Transactions.date).all()
+                    for transact in transactions_from_db:
+                        transact_dict={'date':transact.date, 'number':transact.number_actioned, 'action':transact.action}
+                        item_transactions.append(transact_dict)
+                    view_option ="single"
 
             
 
@@ -139,8 +150,12 @@ def shopping_list():
     if request.method == 'POST':
         if select_form.validate_on_submit():
             if request.form['submit']=='Choose Sorting Method':
+                print (request.form['submit'])
                 sort_on = request.form['options']
                 data_dict=generate_sorted_list(sort_on)
+        else:
+            for key in request.form:
+                print (key, request.form[key])
                 
 
 

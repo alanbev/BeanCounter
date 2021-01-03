@@ -5,13 +5,13 @@ shopping list
 
 {% block content %}
 
-<form method="POST", action="#",class="container">
+<form id=form1, method="POST", action="#",class="container">
     {{form1.hidden_tag() }}
     {{form1.options}}
     {{form1.submit}}
 <div>
 </form>
-<form action = "{{ url_for('shopping_list') }}",method = "post">
+<form id=form2. action = "{{ url_for('shopping_list') }}", method = "post">
     <table>
         {% if data | length %}
         <tr><th>Stock Item</th><th>Stock</th><th>% Min Stock</th><th>Days to Min Stock</th><th>Number to Buy</th></tr>

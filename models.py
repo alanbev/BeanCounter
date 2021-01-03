@@ -2,12 +2,13 @@ import datetime
 from app import db
 
 class Stock_list(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    item = db.Column(db.String(100),unique =True)
-    kitchen_stock = db.Column(db.Integer)
-    garage_stock = db.Column(db.Integer)
-    minimum_stock = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True)
+    item = db.Column(db.String(100),unique=True)
+    kitchen_stock = db.Column(db.Integer, default=0)
+    garage_stock = db.Column(db.Integer, default=0)
+    minimum_stock = db.Column(db.Integer,default=0)
     barcode = db.Column(db.Integer)
+    to_buy = db.Column(db.Integer, default=0)
     transaction = db.relationship('Transactions', backref='stock_item',lazy=True)
 
  
