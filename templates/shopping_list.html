@@ -9,10 +9,24 @@ shopping list
     {{form1.hidden_tag() }}
     {{form1.options}}
     {{form1.submit}}
-
+<div>
 </form>
+<form action = "{{ url_for('shopping_list') }}",method = "post">
+    <table>
+        {% if data | length %}
+        <tr><th>Stock Item</th><th>Stock</th><th>% Min Stock</th><th>Days to Min Stock</th><th>Number to Buy</th></tr>
+        {% for dict in data %}
+        <tr><td>{{dict.item}}</td><td>{{dict.total_stock}}</td><td>{{dict.percent_min}}</td><td>{{dict.days_to_min}}<td><input type="number" name="{{dict.item}}" value=0>
+        </td></tr>
+        {%endfor%}
+    </table>
+     <input type="submit" value="Save Changes"> 
+     {% endif %}
+</form>
+</div>
 
-<p>{{data}}</p>
+
+
 
 
 

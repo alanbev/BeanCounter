@@ -138,10 +138,10 @@ def shopping_list():
     select_form=SortShopList()
     if request.method == 'POST':
         if select_form.validate_on_submit():
-            sort_on = request.form['options']
-            print(sort_on)
-            data_dict=generate_sorted_list(sort_on)
-            print(data_dict)
+            if request.form['submit']=='Choose Sorting Method':
+                sort_on = request.form['options']
+                data_dict=generate_sorted_list(sort_on)
+                
 
 
 
