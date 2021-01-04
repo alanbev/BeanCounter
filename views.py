@@ -39,9 +39,11 @@ def update_stock():
 
         if action == 'New stock to kitchen':
             entry_to_change.kitchen_stock += item_quantity
+            entry_to_change.to_buy = 0
 
         elif action == 'New stock to garage':
             entry_to_change.garage_stock += item_quantity
+            entry_to_change.to_buy = 0
 
         elif action == 'Move from kitchen to garage':
             entry_to_change.kitchen_stock -= item_quantity
@@ -150,16 +152,19 @@ def shopping_list():
     if request.method == 'POST':
         if select_form.validate_on_submit():
             if request.form['submit']=='Choose Sorting Method':
-                print (request.form['submit'])
                 sort_on = request.form['options']
                 data_dict=generate_sorted_list(sort_on)
         else:
             for key in request.form:
-                print (key, request.form[key])
+                entry_to_change = Stock_list.query.filter_by(item=key).first()
+                change =request.form[key]
+                if change == "":
+                    change=0
+                change=int(change)
+                entry_to_change.to_buy = change
+            db.session.commit()
+            
                 
-
-
-
 
 
     return render_template('shopping_list.html',form1=select_form, data=data_dict)
