@@ -4,3 +4,13 @@
         <a href="{{  url.for('/show_stock')  }}">Show Stock</a>
         <a href="{{  url.for('/new_item')  }}">New item</a>
     </nav>
+
+
+
+    <table>
+        <tr><th>Item</th><th>Quantity Needed</th>/tr>
+        {% for dict in {{data}} %}
+        <tr><td>{{dict.item}}</td><td>{{dict.to_buy}}</td></tr>
+        {endfor}}
+        </table>
+        {% endblock content %}}

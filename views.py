@@ -8,7 +8,7 @@ from forms import NewItem, SortShopList, StockUpdate, SelectView, SortShopList
 from models import db
 import numpy as np
 import pandas as pd
-from sorted_list import generate_sorted_list
+from sorted_list import generate_sorted_list ,generate_shopping_list_for_printing
 
 
 @app.route('/', methods=('GET','POST'))
@@ -163,14 +163,15 @@ def shopping_list():
                 change=int(change)
                 entry_to_change.to_buy = change
             db.session.commit()
-            
-                
-
 
     return render_template('shopping_list.html',form1=select_form, data=data_dict)
 
 
-
+@app.route('/printable_shopping_list')
+def printable_shopping_list():
+    list_for_printing_dict = generate_shopping_list_for_printing()
+    print(list_for_printing_dict)
+    return render_template('printable_shopping_list.html',data=list_for_printing_dict)
 
 
 

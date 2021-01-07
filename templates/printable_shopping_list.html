@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Printable Shopping List </title>
+
+</head>
+
+<body>
+
+ <table>
+    <tr><th>Item</th><th>Quantity Needed</th></tr>
+    {% for dict in data %}
+    <tr><td>{{dict.item}}</td><td>{{dict.to_buy}}</td></tr>
+    {% endfor %}
+</table>
+
+<p></p><button onclick="window.print()">Print List</button></p>
+<p><a href="{{ url_for('shopping_list')}}"> Return to Editing Shopping list </a></p>
+</body>

@@ -5,6 +5,13 @@ from flask import render_template, request, url_for, flash
 from flask_sqlalchemy.utils import sqlalchemy_version
 
 from models import db
+
+def generate_shopping_list_for_printing():
+    full_list=generate_sorted_list("printing")
+    shopping_list_df=full_list[['item','to_buy']]
+    shopping_list_dict=shopping_list_df.to_dict('records')
+    return shopping_list_dict
+
 def generate_sorted_list(sort_on):
     days_for_burn_rate=14
     stocks_df=pd.read_sql_table('stock_list',con=db.engine, index_col="id")
@@ -31,6 +38,8 @@ def generate_sorted_list(sort_on):
     r_combined_df=combined_df.round({'percent_min':0, 'days_to_min':0}).reset_index()
     rf_combined_df=r_combined_df.fillna(0)
     rf_combined_df['days_to_min'] = rf_combined_df['days_to_min'].clip(lower=0)
+    if sort_on == "printing":
+        return rf_combined_df
     output_dict=rf_combined_df.to_dict('records')
     return output_dict
 
