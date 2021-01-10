@@ -3,6 +3,19 @@
 
 {% block content %}
 
+<div>
+
+<form method="POST", action="#", class="container">
+{{ form1.hidden_tag() }}
+
+{{form1.options}}
+{{form1.submit }}
+</form>
+</div>
+<p></p>
+<p></p>
+<div >
+{% if formtype =='new' %}
 <form method="POST", action="#", class="container">
 {{  form.hidden_tag()  }}
 {{form.item.label}}
@@ -11,6 +24,41 @@
 {{form.min_stock}}
 {{form.submit}}
 </form>
+{% endif %}
+
+<div>
+{% if formtype == 'delete' %}
+<form method="POST", action="#", class="container">
+    {{  form.hidden_tag()  }}
+    {{form.item_name.label}}
+    {{form.item_name}}
+    <p></p>
+   <p> All record of the stocks and tranactions related to this item will be permanently removed.  Do you want to do this?</p>
+    {{form.confirm.label}}
+    {{form.confirm}}
+    <p></p>
+    {{form.submit}}
+    </form>
+{% endif %}
+</div>
+
+<div>
+{% if formtype == 'change' %}
+<form method="POST", action="#", class="container">
+    {{  form.hidden_tag()  }}
+    {{form.item_name.label}}
+    {{form.item_name}}
+    <p></p>
+    {{form.new_name.label}}
+    {{form.new_name}}
+    {{form.new_min_stock.label}}
+    {{form.new_min_stock}}
+    {{form.submit}}
+    </form>
+    {% endif %}
+    </div>
+
+
 
 <div>
     {% with messages = get_flashed_messages() %}
@@ -21,6 +69,8 @@
         {%endif%}
     {% endwith %}
 </div>
+
+
 <a href= "{{ url_for('update_stock') }}">Go to the update stock page </a> to enter where any stock of this item is being stored.
 
 {% endblock content %}

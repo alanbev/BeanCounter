@@ -20,14 +20,17 @@
     <nav class="nav nav-pills nav-justified">
         <a class="nav-link" href= "{{ url_for('update_stock') }}">Update Stock</a>
         <a class="nav-link" href="{{ url_for('show_stock') }}">Show Stock</a>
-        <a class="nav-link" href="{{ url_for('new_item') }}">New item</a> 
+        <a class="nav-link" href="{{ url_for('new_item') }}">Add or Edit Item</a> 
         <a class="nav-link" href="{{ url_for('shopping_list') }}"> Shopping List</a>
      </nav>
-
+     <div>
+       
+    </div>
 
 {%block content%}
 {%endblock content%}
         
+
      
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

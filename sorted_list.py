@@ -8,7 +8,8 @@ from models import db
 
 def generate_shopping_list_for_printing():
     full_list=generate_sorted_list("printing")
-    shopping_list_df=full_list[['item','to_buy']]
+    shopping_list_df_full=full_list[['item','to_buy']]
+    shopping_list_df=shopping_list_df_full[(shopping_list_df_full.to_buy>0)]
     shopping_list_dict=shopping_list_df.to_dict('records')
     return shopping_list_dict
 
@@ -25,7 +26,6 @@ def generate_sorted_list(sort_on):
     combined_df=combined_df.fillna(0)
     combined_df['percent_min']=combined_df['total_stock']/combined_df['minimum_stock']*100
     combined_df['number_actioned'] =combined_df['number_actioned'].clip(lower=0.5)
-    print(combined_df)
     combined_df['days_to_min']=(combined_df['total_stock']-combined_df['minimum_stock'])*days_for_burn_rate/combined_df['number_actioned']
   
     combined_df.drop(['minimum_stock','number_actioned'],axis=1,inplace=True)
@@ -46,10 +46,9 @@ def generate_sorted_list(sort_on):
 if __name__== '__main__':
     sort_on=input('sort by days, percent or item')
      
-    print (generate_sorted_list(sort_on))
+    #print (generate_sorted_list(sort_on))
 
     
-    #print(r_combined_df)
-    #print (output_dict)
+    
 
 

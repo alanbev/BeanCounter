@@ -28,7 +28,7 @@
 
 {% elif view_option =="single" %}
 
-<p>There are {{item_summary.kitchen_stock}} {{item_summary.item}} in the kitchen and {{item_summary.garage_stock}} {{item_summary.item}}  in garage making a total of {{item_summary.total_stock}} {{item_summary.item}}</p>
+<p>There are {{item_summary.kitchen_stock}} {{item_summary.item}} in the kitchen and {{item_summary.garage_stock}} {{item_summary.item}}  in garage making a total of {{item_summary.total_stock}} {{item_summary.item}}. The minimum stock of {{item_summary.item}} is set at {{item_summary.min_stock}}</p>
 <p>The following stock actions for {{item_summary.item}} have been recorded in the last {{item_summary.time_to_show}}</p>
 
 <ul>
