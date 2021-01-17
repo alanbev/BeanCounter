@@ -93,7 +93,7 @@ def show_stock():
                 items_from_bd = Stock_list.query.order_by(Stock_list.item).all()
                 for item in items_from_bd:
                     total_stock = item.kitchen_stock + item.garage_stock
-                    each_item_dict ={'item':item.item, 'kitchen_stock':item.kitchen_stock, 'garage_stock':item.garage_stock, 'total_stock':total_stock}
+                    each_item_dict ={'item':item.item, 'kitchen_stock':item.kitchen_stock, 'garage_stock':item.garage_stock, 'minimum_stock':item.minimum_stock, 'total_stock':total_stock}
                     all_stock.append(each_item_dict)
                     view_option ="all"
             else:

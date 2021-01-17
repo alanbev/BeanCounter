@@ -20,9 +20,14 @@
 
 {% if view_option == "all" %}
 <table border=solid>
-    <tr> <th>Stock item</th> <th>Kitchen Stock</th> <th>Garage Stock</th>  <th>Total Stock</th> </tr>
+    <tr> <th>Stock item</th> <th>Kitchen Stock</th> <th>Garage Stock</th> <th>Min Stock</th></th> <th>Total Stock</th> </tr>
     {% for entry in all_stock %}
-        <tr> <td>{{entry.item}}</td> <td>{{entry.kitchen_stock}}</td> <td>{{entry.garage_stock}}</td> <td>{{entry.total_stock}}</td> </tr>
+        {% if entry.total_stock >= entry.minimum_stock %}
+            <tr> <td>{{entry.item}}</td> <td>{{entry.kitchen_stock}}</td> <td>{{entry.garage_stock}}</td> <td>{{entry.minimum_stock}}</td> <td>{{entry.total_stock}}</td> </tr>
+        {% else %}
+        <tr class="low_stock"> <td>{{entry.item}}</td> <td>{{entry.kitchen_stock}}</td> <td>{{entry.garage_stock}}</td><td>{{entry.minimum_stock}}</td> <td>{{entry.total_stock}}</td> </tr>
+        {% endif %}
+
     {% endfor %}
 </table>
 
